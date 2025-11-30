@@ -1,0 +1,31 @@
+.contact-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #bcf3f3;
+    color: rgb(0, 0, 0);
+    padding: 15px 20px;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 0, 0);
+    width: 180px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    z-index: 9999;
+    transition: background-color 0.3s ease;
+}
+
+.contact-widget h4 {
+    margin: 0 0 5px 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+.contact-widget a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-widget:hover {
+    background-color: #ffffff;
+}
