@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="light-mode">
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#" data-section="about">About</a></li>
+            <li><a href="#" data-section="projects">Projects</a></li>
+            <li><a href="#" data-section="contact">Contact</a></li>
+        </ul>
+        <button id="themeToggle">Switch to Dark Mode</button>
+    </nav>
+
+    <!-- Greeting -->
+    <div id="greeting">Hello!</div>
+
+    <!-- Sections -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a passionate software developer looking for internship opportunities. I love building interactive web apps.</p>
+    </section>
+
+    <section id="projects" class="hidden">
+        <h2>Projects</h2>
+        <ul>
+            <li>Portfolio Website</li>
+            <li>Text Analysis Tool</li>
+            <li>Interactive Clock Widget</li>
+        </ul>
+    </section>
+
+    <section id="contact" class="hidden">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <label for="name">Name:</label>
+            <input type="text" id="name">
+            <small class="error" id="nameError"></small>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email">
+            <small class="error" id="emailError"></small>
+
+            <label for="message">Message:</label>
+            <textarea id="message"></textarea>
+            <small class="error" id="messageError"></small>
+
+            <button type="submit">Send</button>
+        </form>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

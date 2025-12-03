@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Smart Registration Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Smart Registration Form</h2>
+      <div class="form-group">
+        <label>Select User Type</label>
+        <select id="userType" onchange="handleUserType()">
+          <option value="">-- Select --</option>
+          <option value="student">Student</option>
+          <option value="teacher">Teacher</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="rollDiv" style="display: none">
+        <label>Roll Number</label>
+        <input type="text" id="rollInput" placeholder="Enter Roll Number" />
+      </div>
+
+      <div class="form-group" id="deptDiv" style="display: none">
+        <label>Department</label>
+        <input type="text" id="deptInput" placeholder="Enter Department" />
+      </div>
+
+      <button class="submit-btn" onclick="handleSubmit()">Submit</button>
+
+      <p id="message" class="message"></p>
+      <p id="dataDisplay" class="data-display"></p>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
