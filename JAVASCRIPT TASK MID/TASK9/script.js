@@ -1,88 +1,72 @@
-// ===== Theme Toggle =====
-const themeBtn = document.getElementById("themeToggle");
-themeBtn.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    if (document.body.classList.contains("dark-mode")) {
-        themeBtn.textContent = "Switch to Light Mode";
-    } else {
-        themeBtn.textContent = "Switch to Dark Mode";
-    }
+const themeToggle = document.getElementById("themeToggle");
+const body = document.body;
+
+themeToggle.addEventListener("click", () => {
+  body.classList.toggle("light-theme");
+  body.classList.toggle("dark-theme");
+
+  themeToggle.innerText = body.classList.contains("light-theme")
+    ? "🌙 Dark Mode"
+    : "☀️ Light Mode";
 });
 
-// ===== Time-Based Greeting =====
-function updateGreeting() {
-    const greeting = document.getElementById("greeting");
-    const now = new Date();
-    const hour = now.getHours();
-    let text = "Hello!";
+function updateGreetingClock() {
+  const now = new Date();
+  const h = now.getHours();
+  const m = now.getMinutes();
+  const s = now.getSeconds();
+  const ampm = h >= 12 ? "PM" : "AM";
 
-    if (hour >= 5 && hour < 12) text = "Good Morning!";
-    else if (hour >= 12 && hour < 18) text = "Good Afternoon!";
-    else text = "Good Evening!";
+  let greet = "Good Evening";
+  if (h < 12) greet = "Good Morning";
+  else if (h < 18) greet = "Good Afternoon";
 
-    greeting.textContent = text;
+  document.getElementById("greeting").innerText = `${greet}, Welcome to my site!`;
+  document.getElementById("clock").innerText =
+    `${String(h % 12 || 12).padStart(2, "0")}:` +
+    `${String(m).padStart(2, "0")}:` +
+    `${String(s).padStart(2, "0")} ${ampm}`;
 }
-updateGreeting();
 
-// ===== Section Toggling =====
-const navLinks = document.querySelectorAll("nav a");
-const sections = document.querySelectorAll("section");
+setInterval(updateGreetingClock, 1000);
+updateGreetingClock();
 
-navLinks.forEach(link => {
-    link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const target = link.dataset.section;
+document.querySelectorAll(".nav-link").forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    document
+      .querySelectorAll(".nav-link")
+      .forEach((l) => l.classList.remove("active"));
+    document
+      .querySelectorAll(".section")
+      .forEach((sec) => sec.classList.remove("active"));
 
-        sections.forEach(sec => {
-            if (sec.id === target) sec.classList.remove("hidden");
-            else sec.classList.add("hidden");
-        });
-    });
+    link.classList.add("active");
+    document.getElementById(link.dataset.section).classList.add("active");
+  });
 });
 
-// ===== Contact Form Validation =====
-const form = document.getElementById("contactForm");
-form.addEventListener("submit", function(e) {
-    e.preventDefault();
+document.getElementById("contactForm").addEventListener("submit", (e) => {
+  e.preventDefault();
+  let valid = true;
 
-    // Elements
-    const name = document.getElementById("name");
-    const email = document.getElementById("email");
-    const message = document.getElementById("message");
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
 
-    const nameError = document.getElementById("nameError");
-    const emailError = document.getElementById("emailError");
-    const messageError = document.getElementById("messageError");
+  document.getElementById("nameError").innerText = name ? "" : "Name required";
+  document.getElementById("emailError").innerText = /^\S+@\S+\.\S+$/.test(email)
+    ? ""
+    : "Invalid email";
+  document.getElementById("messageError").innerText =
+    message.length >= 10 ? "" : "Min 10 characters";
 
-    let valid = true;
+  if (!name || !/^\S+@\S+\.\S+$/.test(email) || message.length < 10)
+    valid = false;
 
-    // Name validation
-    if (name.value.trim() === "") {
-        nameError.textContent = "Name cannot be empty.";
-        valid = false;
-    } else {
-        nameError.textContent = "";
-    }
-
-    // Email validation
-    const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
-    if (!email.value.match(emailPattern)) {
-        emailError.textContent = "Enter a valid email address.";
-        valid = false;
-    } else {
-        emailError.textContent = "";
-    }
-
-    // Message validation
-    if (message.value.trim().length < 10) {
-        messageError.textContent = "Message must be at least 10 characters.";
-        valid = false;
-    } else {
-        messageError.textContent = "";
-    }
-
-    if (valid) {
-        alert("Form submitted successfully!");
-        form.reset();
-    }
+  if (valid) {
+    document.getElementById("formSuccess").innerText =
+      "Message sent successfully!";
+    e.target.reset();
+  }
 });
